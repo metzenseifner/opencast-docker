@@ -17,7 +17,19 @@ version: "3"
 volumes:
   db: {}
   opensearch: {}
-  data: {}
+  data: 
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ~/.local/state/docker/volumes/opencast/data
+  deploy:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ~/.local/state/docker/volumes/opencast/deploy
+    
 
 services:
   postgresql:
@@ -58,3 +70,4 @@ services:
       - "8080:8080"
     volumes:
       - data:/data
+      - deploy:/opencast/deploy
